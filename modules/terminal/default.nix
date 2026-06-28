@@ -11,12 +11,34 @@
     inputs.nix-index-database.homeModules.default
   ];
 
+  home.shellAliases = {
+    lg = "lazygit";
+    gitr = "git reset --soft HEAD~1";
+    nixs = toString (funcs.mkMutableConfigSymlink ./nixs.sh);
+    nixb = "home-manager build -b backup --flake ${config.home.homeDirectory}/work-nix-config";
+    nixl = "home-manager generations";
+    nixu = "nix flake update --flake ${config.home.homeDirectory}/work-nix-config";
+    nixd = "nix develop -c $SHELL";
+    nixp = "nix-shell --run $SHELL -p";
+    nixr = "nix repl --file ${pkgs.writeText "replinit.nix" ''
+      let
+        self = builtins.getFlake "config";
+      in rec {
+        inherit self;
+        inherit (self) inputs lib;
+        inherit (self.homeConfigurations) ${config.home.username};
+        inherit (self.homeConfigurations.${config.home.username}) pkgs;
+        inherit (self.homeConfigurations.${config.home.username}._module.args) funcs;
+      }
+    ''}";
+  };
+
   programs = {
     zsh = {
       enable = true;
       dotDir = "${config.home.homeDirectory}/.config/zsh";
       enableCompletion = true;
-      autosuggestions.enable = true;
+      autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       oh-my-zsh.enable = true;
       initContent = ''
@@ -24,27 +46,6 @@
         ZSH_VI_MODE_PLUGIN_FILE="${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
         source "${funcs.mkMutableConfigSymlink ./.zshrc}"
       '';
-      shellAliases = {
-        lg = "lazygit";
-        gitr = "git reset --soft HEAD~1";
-        nixs = toString (funcs.mkMutableConfigSymlink ./nixs.sh);
-        nixb = "home-manager build -b backup --flake ${config.home.homeDirectory}/work-nix-config";
-        nixl = "home-manager generations";
-        nixu = "nix flake update --flake ${config.home.homeDirectory}/work-nix-config";
-        nixd = "nix develop -c $SHELL";
-        nixp = "nix-shell --run $SHELL -p";
-        nixr = "nix repl --file ${pkgs.writeText "replinit.nix" ''
-          let
-            self = builtins.getFlake "config";
-          in rec {
-            inherit self;
-            inherit (self) inputs lib;
-            inherit (self.homeConfigurations) ${config.home.username};
-            inherit (self.homeConfigurations.${config.home.username}) pkgs;
-            inherit (self.homeConfigurations.${config.home.username}._module.args) funcs;
-          }
-        ''}";
-      };
     };
     bash.enable = true;
     git = {
@@ -67,7 +68,6 @@
       };
       lfs.enable = true;
     };
-    tmux.enable = true;
     zoxide.enable = true;
     nix-index-database.comma.enable = true;
     nix-index.enable = true;
@@ -80,7 +80,7 @@
         owner = "tmux-plugins";
         repo = "tpm";
         rev = "master";
-        hash = "sha256-hW8mfwB8F9ZkTQ72WQp/1fy8KL1IIYMZBtZYIwZdMQc=";
+        hash = "";
       }
     );
     ".config/tmux/plugins/tmux-which-key/config.yaml".source =
@@ -90,6 +90,9 @@
   };
 
   home.packages = with pkgs; [
+    # Not using the program option so I can use my config files.
+    tmux
+
     # Tool to remove large files from git history. Call with "bfg".
     bfg-repo-cleaner
 

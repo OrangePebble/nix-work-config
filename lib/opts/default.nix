@@ -21,7 +21,7 @@ with lib;
   };
 
   config = {
-    hm.home.file =
+    home.file =
       (listToAttrs (
         mapAttrsToList (name: script: {
           name = ".config/autostart/${name}.script.desktop";

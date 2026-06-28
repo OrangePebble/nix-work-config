@@ -2,7 +2,6 @@
   config,
   lib,
   funcs,
-  vars,
   pkgs,
   ...
 }:
@@ -15,9 +14,10 @@ with lib;
   config = {
     _module.args.funcs = config.opts.funcs;
     opts.funcs = {
-      mkOutOfStoreSymlink = path: config.hm.lib.file.mkOutOfStoreSymlink path;
+      mkOutOfStoreSymlink = path: config.lib.file.mkOutOfStoreSymlink path;
       relativeToAbsoluteConfigPath =
-        path: (vars.configDirectory + removePrefix (toString ./../..) (toString path));
+        path:
+        ("${config.home.homeDirectory}/work-nix-config" + removePrefix (toString ./../..) (toString path));
       mkMutableConfigSymlink = path: funcs.mkOutOfStoreSymlink (funcs.relativeToAbsoluteConfigPath path);
       patchDesktop =
         pkg: appName: from: to:
