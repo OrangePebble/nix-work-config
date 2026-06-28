@@ -1,0 +1,155 @@
+/*
+* Changes the bookmarks to look like Essentials
+* From https://github.com/CMD-Golem/Zen-Browser-Mods
+*/
+
+/* Remove default styles */
+#personal-bookmarks {
+  padding: 0 !important;
+}
+#personal-bookmarks:hover {
+  background-color: transparent !important;
+}
+.toolbarbutton-text[value=""] {
+  display: none !important;
+}
+
+/* Warp Bookmarks */
+#PlacesToolbarItems {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Number of columns */
+  margin-top: 5px;
+}
+
+/* Horizontal line */
+#PlacesToolbar {
+  flex-direction: column;
+}
+
+/* #PlacesToolbar:after { */
+/*   content: ""; */
+/*   width: calc(100% - 3px); */
+/*   height: 1px; */
+/*   margin-top: 5px; */
+/*   margin-bottom: 8px; */
+/*   display: block; */
+/*   height: 1px; */
+/*   background: light-dark(rgba(1, 1, 1, 0.075), rgba(255, 255, 255, 0.1)); */
+/* } */
+
+/* Style Bookmark items */
+toolbarbutton.bookmark-item:not(.subviewbutton):not(
+    #bookmarks-toolbar-placeholder
+  ) {
+  height: 36px !important;
+  width: calc(100% -1px) !important;
+  background-color: var(--tab-hover-background-color) !important;
+}
+toolbarbutton.bookmark-item:not(.subviewbutton):not(
+    #bookmarks-toolbar-placeholder
+  )
+  image {
+  width: 18px !important;
+  height: 18px !important;
+}
+toolbarbutton.bookmark-item:not(.subviewbutton):not(
+    #bookmarks-toolbar-placeholder
+  ):hover {
+  background-color: var(--tab-selected-bgcolor) !important;
+}
+
+/* Expand bookmarks with text */
+toolbarbutton.bookmark-item:not(.subviewbutton):not(
+    #bookmarks-toolbar-placeholder
+  ):not([label=""]) {
+  grid-column: auto / span 2;
+}
+toolbarbutton.bookmark-item:not(.subviewbutton):not(
+    #bookmarks-toolbar-placeholder
+  ):not([label=""])
+  image {
+  margin-left: 5px;
+  margin-right: 5.5px !important;
+}
+
+/* Hide open all in tabs*/
+.bookmarks-actions-menuseparator,
+.openintabs-menuitem {
+  display: none;
+}
+
+/*
+* Cleans up theunified extensions menu
+* From https://github.com/KiKaraage/ZenMods/blob/main/Lean/chrome.css
+*/
+
+/* Hide header, description, extension captions */
+#unified-extensions-view box.panel-header,
+#unified-extensions-view > :nth-child(2),
+#unified-extensions-description,
+#unified-extensions-messages-container,
+.unified-extensions-item-message-deck {
+  display: none !important;
+}
+/* Reduce the panel size and padding */
+#unified-extensions-view {
+  width: var(--menu-panel-width) !important;
+}
+#overflowed-extensions-list {
+  padding-block-start: 2px !important;
+}
+#unified-extensions-area {
+  padding-block-end: 1px !important;
+}
+panelview .unified-extensions-item-action-button {
+  padding-inline: 8px !important;
+  padding-block: 4px !important;
+}
+#unified-extensions-manage-extensions {
+  margin-inline: 3px !important;
+  padding: 8px 10px !important;
+  margin-block-end: 4px !important;
+}
+#unified-extensions-panel .unified-extensions-item {
+  margin-block: 2px !important;
+}
+#unified-extensions-view .unified-extensions-item-action-button:hover {
+  background-color: color-mix(in srgb, currentColor 3%, transparent) !important;
+}
+#unified-extensions-view .unified-extensions-item-menu-button.subviewbutton,
+.unified-extensions-item-row-wrapper {
+  padding: 0 !important;
+}
+#unified-extensions-view
+  .unified-extensions-item-menu-button.subviewbutton
+  > .toolbarbutton-icon {
+  opacity: 0 !important;
+  transition: 0.2s ease !important;
+}
+#unified-extensions-panel .unified-extensions-item:hover {
+  .unified-extensions-item-menu-button.subviewbutton > .toolbarbutton-icon {
+    opacity: 0.85 !important;
+  }
+  background-color: transparent !important;
+}
+#unified-extensions-view
+  .unified-extensions-item-action-button
+  .panel-no-padding
+  .webextension-browser-action {
+  padding: 0 !important;
+}
+#unified-extensions-view .toolbar-menupopup :is(menu, menuitem),
+.subview-subheader,
+panelview .toolbarbutton-1,
+.subviewbutton,
+.widget-overflow-list .toolbarbutton-1 {
+  max-height: 3em !important;
+}
+#unified-extensions-view .subviewbutton-iconic {
+  & > .toolbarbutton-icon {
+    width: 1em !important;
+    height: 1em !important;
+    padding: 0.6em !important;
+  }
+}
+

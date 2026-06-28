@@ -1,0 +1,30 @@
+{
+  "policies": {
+    "AutofillAddressEnabled": false,
+    "AutofillCreditCardEnabled": false,
+    "DisableAppUpdate": true,
+    "DisableFirefoxStudies": true,
+    "DisablePocket": true,
+    "DisableTelemetry": true,
+    "DisplayBookmarksToolbar": "never",
+    "DisplayMenuBar": "default-off",
+    "DontCheckDefaultBrowser": true,
+    "EnableTrackingProtection": {
+      "BaselineExceptions": true,
+      "ConvenienceExceptions": false,
+      "Cryptomining": true,
+      "EmailTracking": true,
+      "Fingerprinting": true,
+      "Locked": false,
+      "SuspectedFingerprinting": true,
+      "Value": false
+    },
+    "HttpsOnlyMode": true,
+    "NoDefaultBookmarks": true,
+    "OfferToSaveLogins": false,
+    "OverrideFirstRunPage": "",
+    "OverridePostUpdatePage": "",
+    "PasswordManagerEnabled": false,
+    "SearchBar": "unified"
+  }
+}
