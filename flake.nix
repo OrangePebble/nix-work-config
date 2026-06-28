@@ -2,8 +2,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager";
-    nur.url = "github:nix-community/NUR";
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
     nix-index-database.url = "github:nix-community/nix-index-database";
   };
   outputs =
