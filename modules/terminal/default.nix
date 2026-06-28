@@ -80,7 +80,7 @@
         owner = "tmux-plugins";
         repo = "tpm";
         rev = "master";
-        hash = "";
+        hash = "sha256-oRKUZNyJYQXlkeQfbEYiltUEBpvdwn2SoEBWHVUNmrA=";
       }
     );
     ".config/tmux/plugins/tmux-which-key/config.yaml".source =

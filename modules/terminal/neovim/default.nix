@@ -1,6 +1,7 @@
 {
   pkgs,
   funcs,
+  lib,
   ...
 }:
 {
@@ -33,13 +34,10 @@
     gersemi # cmake formatter.
     cmake-lint
   ];
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
   home.file.".config/nvim".source = funcs.mkMutableConfigSymlink ./config;
   home.shellAliases = {
     vi = "nvim";
     vim = "nvim";
   };
+  xdg.configFile."nvim/init.lua".enable = lib.mkForce false;
 }
