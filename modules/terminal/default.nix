@@ -140,5 +140,22 @@
       # Not installing bazel directly because very specific versions are required and this automatically gets the correct version.
       ${lib.getExe bazelisk} $@
     '')
+
+    (pkgs.stdenvNoCC.mkDerivation rec {
+      pname = "bazel-compile-commands";
+      version = "0.22.4";
+      src = pkgs.fetchzip {
+        url = "https://github.com/kiron1/bazel-compile-commands/releases/download/bazel-compile-commands-v${version}/bazel-compile-commands_${version}-linux_amd64.zip";
+        hash = "sha256-6vco3XN7g87IymbC3HQRB0IAVYAVDyHV/+VvKEpOR44=";
+      };
+      installPhase = ''
+        mkdir -p $out/bin $out/share
+        cp -r $src/bin/* $out/bin/
+        cp -r $src/share/* $out/share/
+        chmod +x $out/bin/*
+      '';
+      meta.mainProgram = "bazel-compile-commands";
+    })
+
   ];
 }
