@@ -1,5 +1,8 @@
 # As this is my work config I shouldn't commit some things and I don't feel like setting up sops.
-# WARN: Either be careful to not commit this file or add it to .gitignore
+# This file has been added to '.gitignore' so to ignore new changes run:
+#  `git update-index --assume-unchanged lib/vars/secrets.nix`
+# And if you need to change it later run:
+#  `git update-index --no-assume-unchanged lib/vars/secrets.nix`
 vars:
 let
   allNonEmpty =
