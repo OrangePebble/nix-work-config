@@ -4,6 +4,7 @@
   inputs,
   config,
   lib,
+  vars,
   ...
 }:
 {
@@ -16,9 +17,9 @@
     lg = "lazygit";
     gitr = "git reset --soft HEAD~1";
     nixs = toString (funcs.mkMutableConfigSymlink ./nixs.sh);
-    nixb = "home-manager build -b backup --flake ${config.home.homeDirectory}/work-nix-config";
+    nixb = "home-manager build -b backup --flake ${vars.homeDirectory}/work-nix-config";
     nixl = "home-manager generations";
-    nixu = "nix flake update --flake ${config.home.homeDirectory}/work-nix-config";
+    nixu = "nix flake update --flake ${vars.homeDirectory}/work-nix-config";
     nixd = "nix develop -c $SHELL";
     nixp = "nix-shell --run $SHELL -p";
     nixr = "nix repl --file ${pkgs.writeText "replinit.nix" ''
@@ -27,17 +28,22 @@
       in rec {
         inherit self;
         inherit (self) inputs lib;
-        inherit (self.homeConfigurations) ${config.home.username};
-        inherit (self.homeConfigurations.${config.home.username}) pkgs;
-        inherit (self.homeConfigurations.${config.home.username}._module.args) funcs;
+        inherit (self.homeConfigurations) ${vars.username};
+        inherit (self.homeConfigurations.${vars.username}) pkgs;
+        inherit (self.homeConfigurations.${vars.username}._module.args) funcs;
+        inherit (self.homeConfigurations.${vars.username}._module.specialArgs) vars;
       }
     ''}";
   };
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
+  home.shell.enableZshIntegration = true;
 
   programs = {
     zsh = {
       enable = true;
-      dotDir = "${config.home.homeDirectory}/.config/zsh";
+      dotDir = "${vars.homeDirectory}/.config/zsh";
       enableCompletion = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
@@ -53,6 +59,11 @@
       enable = true;
       settings = {
         init.defaultBranch = "main";
+        user.name = vars.git.name;
+        user.email = vars.git.email;
+        gpg.format = "ssh";
+        commit.gpgsign = true;
+        user.signingkey = "${vars.homeDirectory}/.ssh/id_ed25519.pub";
         credential.helper = [
           "cache --timeout 2629800"
           "oauth"
