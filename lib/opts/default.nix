@@ -11,34 +11,25 @@ with lib;
     autostartScripts = mkOption {
       default = { };
       type = with types; attrsOf str;
-      description = "Make scripts autostart using .desktop files.";
-    };
-    autostartSymlinks = mkOption {
-      default = { };
-      type = with types; attrsOf path;
-      description = "Make .desktop files autostart.";
+      description = "Make scripts autostart using systemd.";
     };
   };
 
   config = {
-    home.file =
-      (listToAttrs (
+    systemd.user.services = (
+      listToAttrs (
         mapAttrsToList (name: script: {
-          name = ".config/autostart/${name}.script.desktop";
-          value.text = ''
-            [Desktop Entry]
-            Exec=${pkgs.writeShellScript name script}
-            Name=${name}
-            Type=Application
-            X-KDE-AutostartScript=true
-          '';
+          inherit name;
+          value = {
+            Service = {
+              ExecStart = "${pkgs.writeShellScript name script}";
+              RemainAfterExit = "yes";
+              Type = "oneshot";
+            };
+            Install.WantedBy = [ "basic.target" ];
+          };
         }) config.opts.autostartScripts
-      ))
-      // (listToAttrs (
-        mapAttrsToList (name: path: {
-          name = ".config/autostart/${name}.symlink.desktop";
-          value.source = funcs.mkOutOfStoreSymlink path;
-        }) config.opts.autostartSymlinks
-      ));
+      )
+    );
   };
 }

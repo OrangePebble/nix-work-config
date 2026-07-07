@@ -146,6 +146,9 @@
     # AI coding agent with plugins for Neovim integration.
     opencode
 
+    # C/C++ debugger
+    gdb
+
     (writeShellScriptBin "bazel" ''
       # Launcher for the bazel build tool.
       # Not installing bazel directly because very specific versions are required and this automatically gets the correct version.
