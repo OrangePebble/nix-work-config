@@ -99,6 +99,7 @@
       funcs.mkMutableConfigSymlink ./tmux/which-key.yaml;
     ".config/tmux/scripts".source = funcs.mkMutableConfigSymlink ./tmux/scripts;
     ".config/opencode/opencode.jsonc".source = funcs.mkMutableConfigSymlink ./opencode.jsonc;
+    ".config/lazygit/config.yml".source = funcs.mkMutableConfigSymlink ./lazygit.yml;
   };
 
   home.packages = with pkgs; [
@@ -148,6 +149,9 @@
 
     # C/C++ debugger
     gdb
+
+    # JSON processor
+    jq
 
     (writeShellScriptBin "bazel" ''
       # Launcher for the bazel build tool.
