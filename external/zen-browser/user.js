@@ -28,3 +28,4 @@ user_pref("zen.urlbar.behavior", "float");
 user_pref("zen.urlbar.replace-newtab", true);
 user_pref("zen.urlbar.show-protections-icon", true);
 user_pref("zen.urlbar.single-toolbar-show-copy-url", false);
+user_pref("network.http.windows-sso.enabled", true);
