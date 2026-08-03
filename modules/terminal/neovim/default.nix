@@ -23,6 +23,7 @@
     nodejs # For the bash LSP.
     python315 # For the python linter and formatter.
     lsof # For the opencode plugin
+    wget # For shellcheck
 
     # LSPs, DAPs, Linters and Formatters not installed with Mason.
     statix

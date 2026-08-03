@@ -153,6 +153,11 @@
     # JSON processor
     jq
 
+    # Used by some work projects
+    # A higher version of python is installed elsewhere so conflicts exist for the 'python' binary.
+    # Making this lower priority so 'python' uses the other version and to use this we run the 'python3.12' binary.
+    (lib.meta.lowPrio python312)
+
     (writeShellScriptBin "bazel" ''
       # Launcher for the bazel build tool.
       # Not installing bazel directly because very specific versions are required and this automatically gets the correct version.
