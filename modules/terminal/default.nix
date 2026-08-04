@@ -153,10 +153,25 @@
     # JSON processor
     jq
 
-    # Used by some work projects
+    # Used by some work projects.
+    # Includes the Python packages needed by the optestrunner merge scripts.
     # A higher version of python is installed elsewhere so conflicts exist for the 'python' binary.
     # Making this lower priority so 'python' uses the other version and to use this we run the 'python3.12' binary.
-    (lib.meta.lowPrio python312)
+    (lib.meta.lowPrio (
+      python312.withPackages (
+        ps: with ps; [
+          filelock
+          jsonschema
+          junitparser
+          lxml
+          numpy
+          pandas
+          psutil
+          pytest
+          pytest-xdist
+        ]
+      )
+    ))
 
     (writeShellScriptBin "bazel" ''
       # Launcher for the bazel build tool.
