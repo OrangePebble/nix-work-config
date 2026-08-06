@@ -16,10 +16,4 @@
       options = "--delete-older-than 30d";
     };
   };
-  systemd.user.tmpfiles.rules = [
-    "d /tmp/E2E-Highway-Artifacts/tools/env_simulator/ExampleData - - - - -"
-    "d /tmp/E2EOpTestArtifacts - - - - -"
-    "L /tmp/E2E-Highway-Artifacts/tools/env_simulator/ExampleData/E2EOpTestArtifacts - - - - /tmp/E2EOpTestArtifacts"
-  ];
-
 }

@@ -37,6 +37,7 @@
   };
   home.sessionVariables = {
     EDITOR = "nvim";
+    WINDOWS_USER = vars.windows-user;
   };
   home.shell.enableZshIntegration = true;
 
@@ -83,6 +84,16 @@
     zoxide.enable = true;
     nix-index-database.comma.enable = true;
     nix-index.enable = true;
+    # Customize colors for terminal commands like ls
+    # See `dircolors --print-database` for options
+    dircolors = {
+      enable = true;
+      enableZshIntegration = true;
+      settings = {
+        OTHER_WRITABLE = "30;42";
+        STICKY_OTHER_WRITABLE = "30;44";
+      };
+    };
   };
 
   home.file = {

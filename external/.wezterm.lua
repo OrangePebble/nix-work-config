@@ -82,13 +82,13 @@ config.colors = {
 	},
 	brights = {
 		"#4a4a4a",
-		"#eb746b",
-		"#37d77f",
-		"#f0d399",
-		"#8fb8ff",
-		"#c6a3ff",
-		"#7ad5d6",
-		"#e5e5e6",
+		"#ef8c85",
+		"#5ddf98",
+		"#f1daac",
+		"#a3c5ff",
+		"#d0b3ff",
+		"#92dcdd",
+		"#eaeaeb",
 	},
 }
 
