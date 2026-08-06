@@ -23,10 +23,6 @@ let
       name = "";
       email = "";
     };
-    rclone = {
-      url = "";
-      password = "";
-    };
   };
 in
 assert allNonEmpty secret-vars;
