@@ -53,6 +53,7 @@ config.cursor_blink_ease_out = "Constant"
 config.adjust_window_size_when_changing_font_size = false
 
 config.disable_default_key_bindings = true
+-- https://wezterm.org/config/default-keys.html
 config.keys = {
 	{ key = "V", mods = "CTRL", action = act.PasteFrom("Clipboard") },
 	{ key = "V", mods = "CTRL", action = act.PasteFrom("PrimarySelection") },
@@ -61,6 +62,8 @@ config.keys = {
 	{ key = "=", mods = "CTRL", action = act.IncreaseFontSize },
 	{ key = "0", mods = "CTRL", action = act.ResetFontSize },
 	{ key = "L", mods = "CTRL", action = act.ShowDebugOverlay },
+	-- https://github.com/wezterm/wezterm/issues/7187#issuecomment-3241365756
+	{ key = "Enter", mods = "SHIFT", action = act.SendString("\n") },
 }
 
 config.colors = {
