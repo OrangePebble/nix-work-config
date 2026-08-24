@@ -6,37 +6,71 @@ config.automatically_reload_config = true
 config.default_prog = { "wsl", "tmux", "new", "-A" }
 config.window_close_confirmation = "NeverPrompt"
 
-config.font_size = 11
 -- Run `wezterm ls-fonts --list-system` to find all possible options.
-config.font = wezterm.font("SauceCodePro Nerd Font Mono", { weight = "Regular", stretch = "Normal", style = "Normal" })
+
+-- config.font_size = 11
+-- config.font = wezterm.font("SauceCodePro Nerd Font Mono", { weight = "Regular", stretch = "Normal", style = "Normal" })
+-- config.font_rules = {
+-- 	{
+-- 		intensity = "Normal",
+-- 		italic = true,
+-- 		font = wezterm.font(
+-- 			"SauceCodePro Nerd Font Mono",
+-- 			{ weight = "Regular", stretch = "Normal", style = "Italic" }
+-- 		),
+-- 	},
+-- 	{
+-- 		intensity = "Bold",
+-- 		italic = false,
+-- 		font = wezterm.font("SauceCodePro Nerd Font Mono", { weight = "Bold", stretch = "Normal", style = "Normal" }),
+-- 	},
+-- 	{
+-- 		intensity = "Bold",
+-- 		italic = true,
+-- 		font = wezterm.font("SauceCodePro Nerd Font Mono", { weight = "Bold", stretch = "Normal", style = "Italic" }),
+-- 	},
+-- 	{
+-- 		intensity = "Half",
+-- 		italic = false,
+-- 		font = wezterm.font("SauceCodePro Nerd Font Mono", { weight = "Light", stretch = "Normal", style = "Normal" }),
+-- 	},
+-- 	{
+-- 		intensity = "Half",
+-- 		italic = true,
+-- 		font = wezterm.font("SauceCodePro Nerd Font Mono", { weight = "Light", stretch = "Normal", style = "Italic" }),
+-- 	},
+-- }
+
+config.font_size = 9.5
+config.font = wezterm.font("Monocraft Nerd Font", { weight = "Regular", stretch = "Normal", style = "Normal" })
 config.font_rules = {
 	{
 		intensity = "Normal",
 		italic = true,
 		font = wezterm.font(
-			"SauceCodePro Nerd Font Mono",
+			"Monocraft Nerd Font",
 			{ weight = "Regular", stretch = "Normal", style = "Italic" }
 		),
 	},
 	{
 		intensity = "Bold",
 		italic = false,
-		font = wezterm.font("SauceCodePro Nerd Font Mono", { weight = "Bold", stretch = "Normal", style = "Normal" }),
+		font = wezterm.font("Monocraft Nerd Font", { weight = "Bold", stretch = "Normal", style = "Normal" }),
 	},
 	{
 		intensity = "Bold",
 		italic = true,
-		font = wezterm.font("SauceCodePro Nerd Font Mono", { weight = "Bold", stretch = "Normal", style = "Italic" }),
+		font = wezterm.font("Monocraft Nerd Font", { weight = "Bold", stretch = "Normal", style = "Italic" }),
 	},
 	{
 		intensity = "Half",
 		italic = false,
-		font = wezterm.font("SauceCodePro Nerd Font Mono", { weight = "Light", stretch = "Normal", style = "Normal" }),
+		font = wezterm.font("Monocraft Nerd Font", { weight = "Light", stretch = "Normal", style = "Normal" }),
 	},
 	{
 		intensity = "Half",
 		italic = true,
-		font = wezterm.font("SauceCodePro Nerd Font Mono", { weight = "Light", stretch = "Normal", style = "Italic" }),
+		font = wezterm.font("Monocraft Nerd Font", { weight = "Light", stretch = "Normal", style = "Italic" }),
 	},
 }
 
@@ -89,7 +123,7 @@ config.colors = {
 		"#5ddf98",
 		"#f1daac",
 		"#a3c5ff",
-		"#d0b3ff",
+		"#d9c2ff",
 		"#92dcdd",
 		"#eaeaeb",
 	},

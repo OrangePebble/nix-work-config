@@ -88,3 +88,4 @@ else
     exit 1
 fi
 
+# TODO: Maybe add 'sudo apt update' here
