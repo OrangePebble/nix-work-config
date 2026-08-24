@@ -7,72 +7,44 @@ config.default_prog = { "wsl", "tmux", "new", "-A" }
 config.window_close_confirmation = "NeverPrompt"
 
 -- Run `wezterm ls-fonts --list-system` to find all possible options.
+-- local font = "SauceCodePro Nerd Font Mono"
+local font = "Monocraft Nerd Font"
 
--- config.font_size = 11
--- config.font = wezterm.font("SauceCodePro Nerd Font Mono", { weight = "Regular", stretch = "Normal", style = "Normal" })
--- config.font_rules = {
--- 	{
--- 		intensity = "Normal",
--- 		italic = true,
--- 		font = wezterm.font(
--- 			"SauceCodePro Nerd Font Mono",
--- 			{ weight = "Regular", stretch = "Normal", style = "Italic" }
--- 		),
--- 	},
--- 	{
--- 		intensity = "Bold",
--- 		italic = false,
--- 		font = wezterm.font("SauceCodePro Nerd Font Mono", { weight = "Bold", stretch = "Normal", style = "Normal" }),
--- 	},
--- 	{
--- 		intensity = "Bold",
--- 		italic = true,
--- 		font = wezterm.font("SauceCodePro Nerd Font Mono", { weight = "Bold", stretch = "Normal", style = "Italic" }),
--- 	},
--- 	{
--- 		intensity = "Half",
--- 		italic = false,
--- 		font = wezterm.font("SauceCodePro Nerd Font Mono", { weight = "Light", stretch = "Normal", style = "Normal" }),
--- 	},
--- 	{
--- 		intensity = "Half",
--- 		italic = true,
--- 		font = wezterm.font("SauceCodePro Nerd Font Mono", { weight = "Light", stretch = "Normal", style = "Italic" }),
--- 	},
--- }
-
-config.font_size = 9.5
-config.font = wezterm.font("Monocraft Nerd Font", { weight = "Regular", stretch = "Normal", style = "Normal" })
+if font == "Monocraft Nerd Font" then
+	config.font_size = 9.5
+elseif font == "SauceCodePro Nerd Font Mono" then
+	config.font_size = 11
+end
+config.font = wezterm.font(font, { weight = "Regular", stretch = "Normal", style = "Normal" })
 config.font_rules = {
 	{
 		intensity = "Normal",
 		italic = true,
-		font = wezterm.font(
-			"Monocraft Nerd Font",
-			{ weight = "Regular", stretch = "Normal", style = "Italic" }
-		),
+		font = wezterm.font(font, { weight = "Regular", stretch = "Normal", style = "Italic" }),
 	},
 	{
 		intensity = "Bold",
 		italic = false,
-		font = wezterm.font("Monocraft Nerd Font", { weight = "Bold", stretch = "Normal", style = "Normal" }),
+		font = wezterm.font(font, { weight = "Bold", stretch = "Normal", style = "Normal" }),
 	},
 	{
 		intensity = "Bold",
 		italic = true,
-		font = wezterm.font("Monocraft Nerd Font", { weight = "Bold", stretch = "Normal", style = "Italic" }),
+		font = wezterm.font(font, { weight = "Bold", stretch = "Normal", style = "Italic" }),
 	},
 	{
 		intensity = "Half",
 		italic = false,
-		font = wezterm.font("Monocraft Nerd Font", { weight = "Light", stretch = "Normal", style = "Normal" }),
+		font = wezterm.font(font, { weight = "Light", stretch = "Normal", style = "Normal" }),
 	},
 	{
 		intensity = "Half",
 		italic = true,
-		font = wezterm.font("Monocraft Nerd Font", { weight = "Light", stretch = "Normal", style = "Italic" }),
+		font = wezterm.font(font, { weight = "Light", stretch = "Normal", style = "Italic" }),
 	},
 }
+-- Disable ligatures
+config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
 config.hide_tab_bar_if_only_one_tab = true
 config.max_fps = 240
