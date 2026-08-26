@@ -206,5 +206,8 @@
       meta.mainProgram = "bazel-compile-commands";
     })
 
+    # Required by openPASS/stochastics-library
+    (lib.meta.lowPrio clang)
+
   ];
 }

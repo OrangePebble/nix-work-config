@@ -60,6 +60,12 @@ toolbarbutton.bookmark-item:not(.subviewbutton):not(
   margin-right: 5px !important;
 }
 
+/* Hide "Open All in Tabs" button and separator above it in a bookmark folder's popup */
+.bookmarks-actions-menuseparator,
+.openintabs-menuitem {
+  display: none;
+}
+
 /*
 * Cleans up theunified extensions menu
 * From https://github.com/KiKaraage/ZenMods/blob/main/Lean/chrome.css
@@ -134,4 +140,3 @@ panelview .toolbarbutton-1,
     padding: 0.6em !important;
   }
 }
-
