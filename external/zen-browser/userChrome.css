@@ -66,6 +66,11 @@ toolbarbutton.bookmark-item:not(.subviewbutton):not(
   display: none;
 }
 
+/* Hide arrow/chevron that sometimes shows up besides the bookmarks. */
+#PlacesChevron {
+  display: none;
+}
+
 /*
 * Cleans up theunified extensions menu
 * From https://github.com/KiKaraage/ZenMods/blob/main/Lean/chrome.css
