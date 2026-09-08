@@ -21,14 +21,7 @@ source "$ZSH_VI_MODE_PLUGIN_FILE"
 
 eval "$(batman --export-env)"
 
-# https://discourse.nixos.org/t/nix-shell-does-not-use-my-users-shell-zsh/5588/13
-# Makes nix-shell and nix develop use ZSH.
-# alias nix-shell='nix-shell --run $SHELL'
-# nix() {
-#     if [[ $1 == "develop" ]]; then
-#         shift
-#         command nix develop -c $SHELL "$@"
-#     else
-#         command nix "$@"
-#     fi
-# }
+# Adds ASTAS lib dependencies and plugins as available libraries.
+# Requires "astas_cli" to be installed for these directories to exist.
+# Is required to run some scenarios using "bazel run ...".
+export LD_LIBRARY_PATH=/opt/astas_core/lib_deps:/opt/astas_core/plugins${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
