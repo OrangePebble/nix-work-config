@@ -10,6 +10,7 @@
 {
   imports = [
     ./neovim
+    ./pi
     inputs.nix-index-database.homeModules.default
   ];
 

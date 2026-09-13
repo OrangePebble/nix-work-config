@@ -3,6 +3,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager";
     nix-index-database.url = "github:nix-community/nix-index-database";
+    pi.url = "github:lukasl-dev/pi.nix";
   };
   outputs =
     inputs@{ nixpkgs, home-manager, ... }:
