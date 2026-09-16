@@ -1,0 +1,55 @@
+#:tombi schema.strict = false
+
+[terminal]
+shell = { program = "wsl", args = ["tmux", "new", "-A"] }
+
+[font]
+normal = { family = "SauceCodePro Nerd Font Mono", style = "Medium" }
+size = 11
+# normal = { family = "Monocraft Nerd Font", style = "Regular" }
+# size = 9.5
+offset = { x = 1, y = 1 }
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.primary]
+foreground = "#f2f2f2"
+background = "#0c0c0c"
+
+[colors.normal]
+black = "#282828"
+red = "#e85c51"
+green = "#25be6a"
+yellow = "#ebcb8b"
+blue = "#78a9ff"
+magenta = "#be95ff"
+cyan = "#63cdcf"
+white = "#dfdfe0"
+
+[colors.bright]
+black = "#4a4a4a"
+red = "#ef8c85"
+green = "#5ddf98"
+yellow = "#f1daac"
+blue = "#a3c5ff"
+magenta = "#d9c2ff"
+cyan = "#92dcdd"
+white = "#eaeaeb"
+
+[colors.dim]
+black = "#242424"
+red = "#c54e45"
+green = "#20a25a"
+yellow = "#d9b263"
+blue = "#4287ff"
+magenta = "#9757ff"
+cyan = "#40c2c4"
+white = "#bebec1"
+
+[keyboard]
+bindings = [
+  { key = "Return", mods = "Shift", chars = "\n" },
+  # Fix for the Neovim alternate file keymap <C-6>.
+  { key = "Key6", mods = "Control", chars = "\u001e" },
+]

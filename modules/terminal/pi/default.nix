@@ -2,6 +2,8 @@
   config,
   inputs,
   lib,
+  pkgs,
+  funcs,
   ...
 }:
 {
@@ -14,17 +16,38 @@
     environment.PI_CODING_AGENT_DIR.value = "${config.xdg.configHome}/pi";
   };
 
+  home.file = {
+    ".config/pi/extensions/pi-permission-system/config.json".source =
+      funcs.mkMutableConfigSymlink ./permission-system-conf.json;
+    ".config/pi/settings.json".source = funcs.mkMutableConfigSymlink ./settings.json;
+  };
+
   # Slop that installs packages and uninstalls any package that isn't in "packages".
   home.activation.installPiPackages = lib.hm.dag.entryAfter [ "writeBoundary" ] (
     let
       packages = [
+        "npm:@nguyenquangthai/pi-omp-theme@1.0.12"
         "npm:@gotgenes/pi-permission-system@31.1.3"
+        "npm:@dietrichgebert/ponytail@4.9.0"
+        "npm:donsetch@4.1.0"
+        "npm:@juicesharp/rpiv-ask-user-question@2.10.1"
+        "npm:@juicesharp/rpiv-todo@2.10.1"
+        "npm:pi-scroll-speed@0.2.0"
+        # "npm:@juicesharp/rpiv-advisor@2.10.1"
+        # "npm:context-mode@1.0.169" # Useful but doesn't mesh well with the permission system
       ];
     in
-    #shell
+    #bash
     ''
       pi() {
-        PI_CODING_AGENT_DIR=${lib.escapeShellArg "${config.xdg.configHome}/pi"} \
+        # Added dependencies to the path because it was required to install donsetch
+        PATH=${
+          lib.makeBinPath [
+            pkgs.gnutar
+            pkgs.gzip
+          ]
+        }:"$PATH" \
+          PI_CODING_AGENT_DIR=${lib.escapeShellArg "${config.xdg.configHome}/pi"} \
           ${config.programs.pi.coding-agent.package}/bin/pi "$@"
       }
 
@@ -33,7 +56,7 @@
       )
 
       for package in "''${desired_packages[@]}"; do
-        $DRY_RUN_CMD pi install "$package"
+        $DRY_RUN_CMD pi install "$package" >/dev/null
       done
 
       if [ -z "$DRY_RUN_CMD" ]; then
