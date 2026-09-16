@@ -5,8 +5,11 @@
     "grep": "allow",
     "ls": "allow",
     "read": "allow",
+    "ask_user_question": "allow",
+    "todo": "allow",
     "web_crawl": "allow",
     "web_fetch": "allow",
+    "web_screenshot": "allow",
     "web_search": "allow",
     "skill": {
       "*": "allow"
@@ -49,17 +52,15 @@
       "git log *": "allow",
       "git rev-parse *": "allow",
       "git show *": "allow",
-
       "git status *": "allow",
-
       "head *": "allow",
+      "ls *": "allow",
       "nix --version": "allow",
       "printf *": "allow",
       "pwd": "allow",
       "realpath *": "allow",
       "stat *": "allow",
       "tail *": "allow",
-
       "test *": "allow",
       "uname *": "allow",
       "wc *": "allow",
@@ -67,14 +68,18 @@
       "whoami": "allow"
     },
     "external_directory": {
-      "*": "ask"
+      "*": "ask",
+      "/tmp/*": "allow"
     },
-
     "external_directory_read": {
+      "/etc/*": "allow",
       "/nix/store/*": "allow",
+      "/usr/share/*": "allow",
+      "~/.cache/*": "allow",
       "~/.config/nvim/*": "allow",
       "~/.config/pi/*": "allow",
       "~/.config/tmux/*": "allow",
+      "~/.local/share/*": "allow",
       "~/home/nix-config/*": "allow"
     }
   }

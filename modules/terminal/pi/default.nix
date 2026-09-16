@@ -13,13 +13,20 @@
 
   programs.pi.coding-agent = {
     enable = true;
-    environment.PI_CODING_AGENT_DIR.value = "${config.xdg.configHome}/pi";
+    environment = {
+      PI_CODING_AGENT_DIR.value = "${config.xdg.configHome}/pi";
+    };
   };
 
   home.file = {
     ".config/pi/extensions/pi-permission-system/config.json".source =
       funcs.mkMutableConfigSymlink ./permission-system-conf.json;
     ".config/pi/settings.json".source = funcs.mkMutableConfigSymlink ./settings.json;
+    ".config/pi/APPEND_SYSTEM.md".source = funcs.mkMutableConfigSymlink ./APPEND_SYSTEM.md;
+    ".config/donsetch/donsetch.toml".text = ''
+      [browser]
+      chromium_path = "${pkgs.chromium}/bin/chromium"
+    '';
   };
 
   # Slop that installs packages and uninstalls any package that isn't in "packages".
