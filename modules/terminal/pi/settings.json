@@ -1,7 +1,6 @@
 {
   "packages": [
     "npm:@gotgenes/pi-permission-system@31.1.3",
-    "npm:@dietrichgebert/ponytail@4.9.0",
     "npm:donsetch@4.1.0",
     "npm:@juicesharp/rpiv-ask-user-question@2.10.1",
     "npm:@juicesharp/rpiv-todo@2.10.1",
