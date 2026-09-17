@@ -18,6 +18,12 @@
     };
   };
 
+  home.packages = [
+    (pkgs.writeShellScriptBin "donsetch" ''
+      exec "${config.xdg.configHome}/pi/npm/node_modules/donsetch/binaries/donsetch" "$@"
+    '')
+  ];
+
   home.file = {
     ".config/pi/extensions/pi-permission-system/config.json".source =
       funcs.mkMutableConfigSymlink ./permission-system-conf.jsonc;

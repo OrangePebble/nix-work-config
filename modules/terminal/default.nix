@@ -190,7 +190,7 @@
     (writeShellScriptBin "bazel" ''
       # Launcher for the bazel build tool.
       # Not installing bazel directly because very specific versions are required and this automatically gets the correct version.
-      ${lib.getExe bazelisk} $@
+      exec ${lib.getExe bazelisk} "$@"
     '')
 
     (pkgs.stdenvNoCC.mkDerivation rec {
