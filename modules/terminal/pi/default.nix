@@ -33,7 +33,6 @@
   home.activation.installPiPackages = lib.hm.dag.entryAfter [ "writeBoundary" ] (
     let
       packages = [
-        "npm:@nguyenquangthai/pi-omp-theme@1.0.12"
         "npm:@gotgenes/pi-permission-system@31.1.3"
         "npm:@dietrichgebert/ponytail@4.9.0"
         "npm:donsetch@4.1.0"

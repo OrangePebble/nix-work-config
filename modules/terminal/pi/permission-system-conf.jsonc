@@ -59,6 +59,7 @@
       "realpath *": "allow",
       "tail *": "allow",
       "test *": "allow",
+      "tr *": "allow",
 
       // Listing and metadata
       "df *": "allow",
@@ -115,6 +116,7 @@
       "echo *": "allow",
       "nix --version": "allow",
       "printf *": "allow",
+      "true": "allow",
 
       // Commands that can execute or write
       "fd*--exec*": "ask",
