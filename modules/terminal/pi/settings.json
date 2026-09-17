@@ -12,10 +12,7 @@
     "read",
     "bash",
     "edit",
-    "write",
-    "grep",
-    "find",
-    "ls"
+    "write"
   ],
   "defaultProvider": "github-copilot",
   "defaultModel": "gpt-5.6-terra",

@@ -20,7 +20,7 @@
 
   home.file = {
     ".config/pi/extensions/pi-permission-system/config.json".source =
-      funcs.mkMutableConfigSymlink ./permission-system-conf.json;
+      funcs.mkMutableConfigSymlink ./permission-system-conf.jsonc;
     ".config/pi/settings.json".source = funcs.mkMutableConfigSymlink ./settings.json;
     ".config/pi/APPEND_SYSTEM.md".source = funcs.mkMutableConfigSymlink ./APPEND_SYSTEM.md;
     ".config/donsetch/donsetch.toml".text = ''
