@@ -112,7 +112,12 @@
       "git show *": "allow",
       "git status *": "allow",
 
-      // Existing local allowances
+      // Miscellaneous
+      "bazel --version": "allow",
+      "bazel help *": "allow",
+      "bazel query *": "allow",
+      "bazel cquery *": "allow",
+      "bazel aquery *": "allow",
       "echo *": "allow",
       "nix --version": "allow",
       "printf *": "allow",
@@ -133,7 +138,11 @@
     },
     "external_directory": {
       "*": "ask",
-      "/tmp/*": "allow"
+      "/tmp/*": "allow",
+
+      // Work directories
+      // This isn't an actual directory but a bazel target that the extension thinks is a directory
+      "/tools/env_simulator/*": "allow"
     },
     "external_directory_read": {
       "/etc/*": "allow",
@@ -145,6 +154,8 @@
       "~/.config/tmux/*": "allow",
       "~/.local/share/*": "allow",
       "~/home/nix-config/*": "allow",
+
+      // Work directories
       "~/simulation_outputs/*": "allow",
       "~/work-nix-config/*": "allow"
     }
