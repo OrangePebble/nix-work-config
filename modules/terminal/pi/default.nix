@@ -29,6 +29,7 @@
       [browser]
       chromium_path = "${pkgs.chromium}/bin/chromium"
     '';
+    ".config/rpiv-todo/config.json".text = ''{ "maxWidgetLines": 5 }'';
   };
 
   # Slop that installs packages and uninstalls any package that isn't in "packages".
