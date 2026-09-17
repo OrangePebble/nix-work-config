@@ -145,6 +145,7 @@
       "~/.config/tmux/*": "allow",
       "~/.local/share/*": "allow",
       "~/home/nix-config/*": "allow",
+      "~/simulation_outputs/*": "allow",
       "~/work-nix-config/*": "allow"
     }
   }
