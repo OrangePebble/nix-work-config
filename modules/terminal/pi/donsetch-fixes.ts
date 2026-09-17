@@ -65,9 +65,19 @@ async function restartPiDonsetchMcp(): Promise<void> {
  */
 export default function (pi: ExtensionAPI) {
   pi.on("tool_call", async (event) => {
-    if (event.toolName !== "web_fetch") return;
-
     const input = event.input as Record<string, unknown>;
+
+    if (event.toolName === "web_crawl") {
+      // Like web_fetch's optional strings, the tool adapter emits an empty
+      // resume token rather than omitting it. DonSeTch correctly interprets
+      // any supplied token as a resume request, so remove the empty value.
+      if (typeof input.resume === "string" && input.resume.trim() === "") {
+        delete input.resume;
+      }
+      return;
+    }
+
+    if (event.toolName !== "web_fetch") return;
     for (const key of [
       "focus",
       "section",
