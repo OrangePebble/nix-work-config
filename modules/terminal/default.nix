@@ -158,9 +158,6 @@
     # Adds the `git credential-oauth` command to authenticate to Forejo (and others) using OAuth.
     git-credential-oauth
 
-    # AI coding agent with plugins for Neovim integration.
-    opencode
-
     # C/C++ debugger
     gdb
 

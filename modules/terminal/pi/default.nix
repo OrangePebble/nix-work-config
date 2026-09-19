@@ -7,6 +7,10 @@
   ...
 }:
 {
+  systemd.user.tmpfiles.rules = [
+    "d /tmp/pi 0700 - - - -"
+  ];
+
   imports = [
     inputs.pi.homeModules.default
   ];
@@ -70,7 +74,7 @@
       )
 
       for package in "''${desired_packages[@]}"; do
-        $DRY_RUN_CMD pi install "$package" >/dev/null
+        $DRY_RUN_CMD pi install "$package"
       done
 
       if [ -z "$DRY_RUN_CMD" ]; then

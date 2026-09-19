@@ -33,6 +33,7 @@
  * prompts typed directly into the TUI and prompts submitted via this socket.
  */
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
+import { Type } from "typebox";
 import { chmod, mkdir, rm } from "node:fs/promises";
 import { createServer, type Server, type Socket } from "node:net";
 import { join } from "node:path";
@@ -123,6 +124,36 @@ export default function (pi: ExtensionAPI) {
     }
   };
 
+  pi.registerTool({
+    name: "open_for_user",
+    label: "Open for User",
+    description: "Open one or more local files or source locations for the user.",
+    promptSnippet: "Open local files or source locations for the user",
+    promptGuidelines: [
+      "Use open_for_user only when the user explicitly asks to open, jump to, navigate to, show, or view a local file or source location.",
+    ],
+    parameters: Type.Object({
+      locations: Type.Array(
+        Type.Object({
+          path: Type.String({ description: "Absolute path to the local file to open." }),
+          line: Type.Optional(Type.Integer({ minimum: 1, description: "Optional 1-based line number." })),
+          column: Type.Optional(Type.Integer({ minimum: 1, description: "Optional 1-based column number." })),
+        }),
+        { minItems: 1, maxItems: 10, description: "Files or source locations to open for the user." },
+      ),
+    }),
+    async execute(_toolCallId, params) {
+      broadcast("open_file", { locations: params.locations });
+      return {
+        content: [{
+          type: "text",
+          text: `Requested opening ${params.locations.length} location(s) for the user.`,
+        }],
+        details: { locations: params.locations },
+      };
+    },
+  });
+
   const respond = (socket: Socket, id: Request["id"], data?: unknown) =>
     writeJson(socket, { id, type: "response", success: true, ...(data === undefined ? {} : { data }) });
   const fail = (socket: Socket, id: Request["id"], error: string) =>
@@ -178,13 +209,23 @@ export default function (pi: ExtensionAPI) {
           return;
         }
 
+        // Preserve text the user already has in Pi's editor: socket-submitted
+        // input appends to it, submits the combined prompt, then clears the
+        // editor just as an interactive submit would.
+        const editorText = context?.ui.getEditorText() ?? "";
+        const message = `${editorText}${request.message}`;
+        if (editorText && context) {
+          context.ui.setEditorText("");
+          context.ui.setStatus("pi-socket-editor-refresh", undefined);
+        }
+
         // `steer` also starts a turn immediately when Pi is idle. It is the
         // closest supported equivalent to an RPC prompt while busy.
-        pi.sendUserMessage(request.message, {
+        pi.sendUserMessage(message, {
           deliverAs: delivery,
           expandPromptTemplates: true,
         });
-        respond(socket, id, { accepted: true, delivery });
+        respond(socket, id, { accepted: true, delivery, includedEditorText: editorText.length > 0 });
         return;
       }
 

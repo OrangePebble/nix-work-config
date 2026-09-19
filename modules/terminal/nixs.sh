@@ -2,59 +2,60 @@
 #! nix-shell -i bash -p bash
 # shellcheck shell=bash
 
-NIX_CONFIG_DIR=~/work-nix-config
+NIX_CONFIG_DIR=${NIX_CONFIG_DIR:-"$HOME/work-nix-config"}
 
 # cd to your config dir without affecting shell outside this script.
-pushd $NIX_CONFIG_DIR &>/dev/null
+if ! pushd -- "$NIX_CONFIG_DIR" &>/dev/null; then
+    gum log --time timeonly --level error "Cannot enter config directory: $NIX_CONFIG_DIR"
+    exit 1
+fi
 
-# Check if submodules are up to date and warn the user.
+# Check submodule state, but only warn: this script must not stop for submodule issues.
 gum log --time timeonly --level info "Checking submodules..."
 check_submodule() {
-    git diff HEAD --quiet
-    if [ $? -eq 0 ]; then
-        gum log --time timeonly --level info "Submodule '$name' has no uncommitted files."
+    local name="$1" status upstream local_commit remote base
+
+    if ! status=$(git status --porcelain --untracked-files=all); then
+        gum log --time timeonly --level warn "Could not determine whether submodule '$name' has local changes."
+    elif [[ -n "$status" ]]; then
+        gum log --time timeonly --level warn "Submodule '$name' has uncommitted or untracked files."
     else
-        gum log --time timeonly --level warn "Submodule '$name' has uncommitted files."
-        gum confirm "Continue?"
-        if [ $? -eq 1 ]; then
-            exit 1
-        fi
+        gum log --time timeonly --level info "Submodule '$name' has no uncommitted files."
     fi
 
-    git fetch --quiet
+    if ! git fetch --quiet; then
+        gum log --time timeonly --level warn "Could not fetch submodule '$name'; skipping its remote-state check."
+        return 0
+    fi
 
     # https://stackoverflow.com/a/3278427
-    UPSTREAM=${1:-'@{u}'}
-    LOCAL=$(git rev-parse @)
-    REMOTE=$(git rev-parse "$UPSTREAM")
-    BASE=$(git merge-base @ "$UPSTREAM")
+    if ! upstream=$(git rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2>/dev/null); then
+        gum log --time timeonly --level warn "Submodule '$name' has no tracking branch; skipping its remote-state check."
+        return 0
+    fi
+    if ! local_commit=$(git rev-parse @) || ! remote=$(git rev-parse "$upstream") || ! base=$(git merge-base @ "$upstream"); then
+        gum log --time timeonly --level warn "Could not determine the remote state of submodule '$name'."
+        return 0
+    fi
 
-    if [ $LOCAL = $REMOTE ]; then
+    if [ "$local_commit" = "$remote" ]; then
         gum log --time timeonly --level info "Submodule '$name' is up to date."
+    elif [ "$local_commit" = "$base" ]; then
+        gum log --time timeonly --level warn "Submodule '$name' is outdated."
+    elif [ "$remote" = "$base" ]; then
+        gum log --time timeonly --level warn "Submodule '$name' has not pushed its changes."
     else
-        if [ $LOCAL = $BASE ]; then
-            gum log --time timeonly --level warn "Submodule '$name' is outdated."
-        elif [ $REMOTE = $BASE ]; then
-            gum log --time timeonly --level warn "Submodule '$name' has not pushed its changes."
-        else
-            gum log --time timeonly --level warn "Submodule '$name' has diverged from origin."
-        fi
-        gum confirm "Continue?"
-        if [ $? -eq 1 ]; then
-            exit 1
-        fi
+        gum log --time timeonly --level warn "Submodule '$name' has diverged from origin."
     fi
 }
 export -f check_submodule
-git submodule --quiet foreach check_submodule
-if [ $? -ne 0 ]; then
-    exit 1
+if ! git submodule --quiet foreach "check_submodule \"\$name\""; then
+    gum log --time timeonly --level warn "Some submodules could not be checked; continuing."
 fi
 
 # Update files gotten using fetchgit which have a comment on the rev or url attribute.
 gum log --time timeonly --level info "Updating fetchgit commit references..."
-fd .nix --exec update-nix-fetchgit --only-commented
-if [ $? -eq 0 ]; then
+if fd --extension nix --exec update-nix-fetchgit --only-commented; then
     gum log --time timeonly --level info "Updated fetchgit commit references."
 else
     gum log --time timeonly --level warn "Failed to update fetchgit commit references."
@@ -62,8 +63,7 @@ fi
 
 # Autoformat the nix files.
 gum log --time timeonly --level info "Formatting files..."
-treefmt
-if [ $? -eq 0 ]; then
+if treefmt; then
     gum log --time timeonly --level info "Finished formatting files."
 else
     gum log --time timeonly --level error "Failed formatting files."
@@ -71,8 +71,7 @@ else
 fi
 
 gum log --time timeonly --level info "Staging files..."
-git add .
-if [ $? -eq 0 ]; then
+if git add --all; then
     gum log --time timeonly --level info "Staged files."
 else
     gum log --time timeonly --level error "Failed staging files."
@@ -80,12 +79,9 @@ else
 fi
 
 gum log --time timeonly --level info "Rebuilding..."
-home-manager switch -b backup --flake .
-if [ $? -eq 0 ]; then
+if home-manager switch -b backup --flake .; then
     gum log --time timeonly --level info "Finished rebuilding."
 else
     gum log --time timeonly --level error "Failed rebuild."
     exit 1
 fi
-
-# TODO: Maybe add 'sudo apt update' here
