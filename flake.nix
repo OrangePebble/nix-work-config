@@ -18,13 +18,14 @@
     inputs@{ nixpkgs, home-manager, ... }:
     let
       vars = import ./lib/vars inputs;
+      system = "x86_64-linux";
       lib = (nixpkgs.lib.extend (_: _: home-manager.lib)).extend (import ./lib/lib);
     in
     {
       inherit lib;
       homeConfigurations."${vars.username}" = home-manager.lib.homeManagerConfiguration {
         inherit lib;
-        pkgs = nixpkgs.legacyPackages."${vars.hostPlatform}";
+        pkgs = nixpkgs.legacyPackages.${system};
         extraSpecialArgs = {
           inherit inputs;
           inherit vars;

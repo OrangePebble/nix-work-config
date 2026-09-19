@@ -2,7 +2,7 @@
 {
   home = {
     username = vars.username;
-    homeDirectory = vars.homeDirectory;
+    homeDirectory = "/home/${vars.username}";
     stateVersion = "26.05"; # Please research before changing.
   };
   programs = {
