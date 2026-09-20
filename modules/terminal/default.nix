@@ -16,9 +16,9 @@
     lg = "lazygit";
     gitr = "git reset --soft HEAD~1";
     nixs = toString (funcs.mkMutableConfigSymlink ./nixs.sh);
-    nixb = "home-manager build -b backup --flake ${config.home.homeDirectory}/work-nix-config";
+    nixb = "home-manager build -b backup --flake ${config.home.homeDirectory}/nix-work-config";
     nixl = "home-manager generations";
-    nixu = "nix flake update --flake ${config.home.homeDirectory}/work-nix-config";
+    nixu = "nix flake update --flake ${config.home.homeDirectory}/nix-work-config";
     nixd = "nix develop -c $SHELL";
     nixp = "nix-shell --run $SHELL -p";
     nixr = "nix repl --file ${pkgs.writeText "replinit.nix" ''

@@ -2,7 +2,7 @@
 #! nix-shell -i bash -p bash
 # shellcheck shell=bash
 
-NIX_CONFIG_DIR=${NIX_CONFIG_DIR:-"$HOME/work-nix-config"}
+NIX_CONFIG_DIR=${NIX_CONFIG_DIR:-"$HOME/nix-work-config"}
 
 # cd to your config dir without affecting shell outside this script.
 if ! pushd -- "$NIX_CONFIG_DIR" &>/dev/null; then
