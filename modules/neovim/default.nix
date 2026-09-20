@@ -22,7 +22,6 @@
     cargo # Used to install the nil Nix LSP.
     nodejs # For the bash LSP.
     python315 # For the python linter and formatter.
-    lsof # For the opencode plugin
     wget # For shellcheck
 
     # LSPs, DAPs, Linters and Formatters not installed with Mason.
@@ -35,7 +34,7 @@
     gersemi # cmake formatter.
     cmake-lint
   ];
-  home.file.".config/nvim".source = funcs.mkMutableConfigSymlink ./config;
+  home.file.".config/nvim".source = funcs.mkMutableConfigSymlink ./neovim-config;
   home.shellAliases = {
     vi = "nvim";
     vim = "nvim";

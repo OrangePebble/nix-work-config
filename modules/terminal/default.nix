@@ -9,8 +9,6 @@
 }:
 {
   imports = [
-    ./neovim
-    ./pi
     inputs.nix-index-database.homeModules.default
   ];
 
@@ -99,26 +97,10 @@
   };
 
   home.file = {
-    ".config/tmux/tmux.conf".source = funcs.mkMutableConfigSymlink ./tmux/tmux.conf;
-    ".config/tmux/plugins/tpm".source = funcs.mkOutOfStoreSymlink (
-      pkgs.fetchFromGitHub {
-        owner = "tmux-plugins";
-        repo = "tpm";
-        rev = "master";
-        hash = "sha256-oRKUZNyJYQXlkeQfbEYiltUEBpvdwn2SoEBWHVUNmrA=";
-      }
-    );
-    ".config/tmux/plugins/tmux-which-key/config.yaml".source =
-      funcs.mkMutableConfigSymlink ./tmux/which-key.yaml;
-    ".config/tmux/scripts".source = funcs.mkMutableConfigSymlink ./tmux/scripts;
-    ".config/opencode/opencode.jsonc".source = funcs.mkMutableConfigSymlink ./opencode.jsonc;
     ".config/lazygit/config.yml".source = funcs.mkMutableConfigSymlink ./lazygit.yml;
   };
 
   home.packages = with pkgs; [
-    # Not using the program option so I can use my config files.
-    tmux
-
     # Tool to remove large files from git history. Call with "bfg".
     bfg-repo-cleaner
 
