@@ -59,6 +59,7 @@
     bash.enable = true;
     git = {
       enable = true;
+      package = pkgs.git.override { withLibsecret = true; };
       settings = {
         init.defaultBranch = "main";
         user.name = vars.git.name;
@@ -67,7 +68,7 @@
         commit.gpgsign = true;
         user.signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
         credential.helper = [
-          "cache --timeout 2629800"
+          "libsecret"
           "oauth"
         ];
         core.pager = "delta";
