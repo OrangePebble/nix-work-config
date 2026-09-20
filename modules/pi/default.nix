@@ -74,7 +74,9 @@
       )
 
       for package in "''${desired_packages[@]}"; do
-        $DRY_RUN_CMD pi install "$package"
+        NPM_CONFIG_USERCONFIG=${pkgs.writeText "pi-npmrc" ''
+          allow-scripts=donsetch@4.1.0,tree-sitter-bash@0.25.1
+        ''} $DRY_RUN_CMD pi install "$package" >/dev/null
       done
 
       if [ -z "$DRY_RUN_CMD" ]; then
