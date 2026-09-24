@@ -22,10 +22,16 @@
     };
   };
 
-  home.packages = [
-    (pkgs.writeShellScriptBin "donsetch" ''
+  home.packages = with pkgs; [
+    (writeShellScriptBin "donsetch" ''
       exec "${config.xdg.configHome}/pi/npm/node_modules/donsetch/binaries/donsetch" "$@"
     '')
+
+    # To replace the use of python whenever an agent wants to read CSV files
+    # CSV parsing toolkit
+    qsv
+    # JSON processor
+    jq
   ];
 
   home.file = {

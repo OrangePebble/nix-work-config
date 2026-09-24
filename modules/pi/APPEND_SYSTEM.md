@@ -11,3 +11,5 @@ Prefer the `read` tool with its line offset and limit for reading file ranges. D
 For ad hoc inspection and simple local validation, prefer Bash and standard command-line utilities. Do not invoke Python, Node, or other general-purpose interpreters unless the task needs nontrivial structured processing or an interpreter provides a clear correctness advantage.
 
 Do not add command-execution actions (such as `find -exec`) solely to inspect files; use non-executing inspection commands unless execution is necessary for the task.
+
+For CSV parsing and analysis, prefer `qsv` over Python or `awk`; use Python only when `qsv` cannot express the required analysis.

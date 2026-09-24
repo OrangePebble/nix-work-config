@@ -142,9 +142,6 @@
     # C/C++ debugger
     gdb
 
-    # JSON processor
-    jq
-
     # Used by some work projects.
     # Includes the Python packages needed by the optestrunner merge scripts.
     # A higher version of python is installed elsewhere so conflicts exist for the 'python' binary.
