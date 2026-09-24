@@ -57,7 +57,6 @@
     bash.enable = true;
     git = {
       enable = true;
-      package = pkgs.git.override { withLibsecret = true; };
       settings = {
         init.defaultBranch = "main";
         user.name = vars.git.name;
@@ -65,10 +64,9 @@
         gpg.format = "ssh";
         commit.gpgsign = true;
         user.signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
-        credential.helper = [
-          "libsecret"
-          "oauth"
-        ];
+        # Git for Windows provides this executable. It keeps WSL credentials in
+        # Windows Credential Manager and handles browser-based OAuth on Windows.
+        credential.helper = "/mnt/c/Users/${vars.windows-user}/AppData/Local/Programs/Git/mingw64/bin/git-credential-manager.exe";
         core.pager = "delta";
         interactive.diffFilter = "delta --color-only";
         delta = {
