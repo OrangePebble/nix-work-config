@@ -1,3 +1,6 @@
 [submodule "modules/terminal/neovim/config"]
 	path = modules/neovim/neovim-config
 	url = https://git.orangepebble.net/OrangePebble/neovim-config
+[submodule "modules/pi/pi-config"]
+	path = modules/pi/pi-config
+	url = https://git.orangepebble.net/OrangePebble/pi-config
