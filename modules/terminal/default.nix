@@ -66,7 +66,7 @@
         user.signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
         # Git for Windows provides this executable. It keeps WSL credentials in
         # Windows Credential Manager and handles browser-based OAuth on Windows.
-        credential.helper = "/mnt/c/Users/${vars.windows-user}/AppData/Local/Programs/Git/mingw64/bin/git-credential-manager.exe";
+        credential.helper = "/mnt/c/Users/${vars.windows-user}/AppData/Local/Programs/Git/ucrt64/bin/git-credential-manager.exe";
         core.pager = "delta";
         interactive.diffFilter = "delta --color-only";
         delta = {
