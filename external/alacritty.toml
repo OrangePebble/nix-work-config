@@ -1,7 +1,13 @@
 #:tombi schema.strict = false
 
 [terminal]
-shell = { program = "wsl", args = ["tmux", "new", "-A"] }
+shell = { program = "wsl", args = [
+  "/home/pedro/.nix-profile/bin/tmux",
+  "new",
+  "-A",
+  "-c",
+  "/home/pedro"
+] }
 
 [font]
 normal = { family = "SauceCodePro Nerd Font Mono", style = "Medium" }
