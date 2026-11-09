@@ -55,33 +55,27 @@ fi
 
 # Update files gotten using fetchgit which have a comment on the rev or url attribute.
 printf '[\033[94minfo\033[0m] %s\n' "Updating fetchgit commit references..."
-if fd --extension nix --exec update-nix-fetchgit --only-commented; then
-    printf '[\033[94minfo\033[0m] %s\n' "Updated fetchgit commit references."
-else
+if ! fd --extension nix --exec update-nix-fetchgit --only-commented; then
     printf '[\033[93mwarn\033[0m] %s\n' "Failed to update fetchgit commit references."
 fi
 
 # Autoformat the nix files.
 printf '[\033[94minfo\033[0m] %s\n' "Formatting files..."
-if treefmt; then
-    printf '[\033[94minfo\033[0m] %s\n' "Finished formatting files."
-else
+if ! treefmt; then
     printf '[\033[91merror\033[0m] %s\n' "Failed formatting files."
     exit 1
 fi
 
 printf '[\033[94minfo\033[0m] %s\n' "Staging files..."
-if git add --all; then
-    printf '[\033[94minfo\033[0m] %s\n' "Staged files."
-else
+if ! git add --all; then
     printf '[\033[91merror\033[0m] %s\n' "Failed staging files."
     exit 1
 fi
 
 printf '[\033[94minfo\033[0m] %s\n' "Rebuilding..."
-if home-manager switch -b backup --flake .; then
-    printf '[\033[94minfo\033[0m] %s\n' "Finished rebuilding."
-else
+if ! home-manager switch -b backup --flake .; then
     printf '[\033[91merror\033[0m] %s\n' "Failed rebuild."
     exit 1
 fi
+
+printf '[\033[94minfo\033[0m] %s\n' "Finished successfully."
