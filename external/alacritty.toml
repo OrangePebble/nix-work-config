@@ -8,6 +8,7 @@ shell = { program = "wsl", args = [
   "-c",
   "/home/pedro"
 ] }
+osc52 = "CopyPaste"
 
 [font]
 normal = { family = "SauceCodePro Nerd Font Mono", style = "Medium" }

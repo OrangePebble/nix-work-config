@@ -103,7 +103,7 @@ precmd() { # cspell:disable-line
 
         cost="${cost}s"
 
-        echo "$fg[blue]${cost}${color_reset} ${formatted_cmd}"
+        echo "$fg[yellow]${cost}${color_reset} ${formatted_cmd}"
     }
 
     # last_cmd
@@ -231,7 +231,7 @@ _simplerich_prompt() {
 
     directory_info() {
         #    echo "%c";
-        echo "%{$fg_bold[blue]%}${PWD/#$HOME/~}%{$reset_color%}"
+        echo "%{$fg_bold[yellow]%}${PWD/#$HOME/~}%{$reset_color%}"
     }
 
     git_info() {

@@ -285,6 +285,9 @@ items:
   - name: Open blank popup terminal (b)
     key: C-b
     command: display-popup -E -w 75% -h 75% -d "#{pane_current_path}"
+  - name: Toggle suspend [-p]
+    key: F12
+    command: switch-client -T root \; send-keys -K F12
   - name: Time
     key: t
     command: clock-mode
